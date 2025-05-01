@@ -7,7 +7,7 @@ class Article(models.Model):
     """
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=1024)
-    content = models.TextField()
+    content = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.IntegerField()
