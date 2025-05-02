@@ -9,7 +9,7 @@ class GetAllArticles(graphene.ObjectType):
         return ArticleService().get_all_articles()
 
 class GetArticleById(graphene.ObjectType):
-    article = graphene.Field(ArticleType, id=graphene.Id(required=True))
+    article = graphene.Field(ArticleType, id=graphene.ID(required=True))
 
     def resolve_article(self, info, id):
         return ArticleService().get_article_by_id(id)
