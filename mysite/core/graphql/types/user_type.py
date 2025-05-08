@@ -1,8 +1,7 @@
 from graphene_django import DjangoObjectType
-from ...models.article import Article
 from ...models.user import User
 
-class ArticleType(DjangoObjectType):
+class UserType(DjangoObjectType):
     class Meta:
-        model = Article
+        model = User
         fields = "__all__"

@@ -9,4 +9,4 @@ class Phase(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return self.id
+        return str(self.id)
