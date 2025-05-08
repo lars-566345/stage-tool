@@ -7,11 +7,12 @@ class CreateArticle(graphene.Mutation):
         title = graphene.String(required=True)
         content = graphene.String(required=False)
         status = graphene.Int(required=True)
+        author = graphene.Int(required=True)
 
     article = graphene.Field(ArticleType)
 
-    def mutate(self, info, title, content, status):
-        article = ArticleService().create_article(title, content, status)
+    def mutate(self, info, title, content, status, author):
+        article = ArticleService().create_article(title, content, status, author)
         return CreateArticle(article=article)
 
 
