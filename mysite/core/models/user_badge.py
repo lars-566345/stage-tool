@@ -1,6 +1,6 @@
 from django.db import models
-from user import User
-from badge import Badge
+from .user import User
+from .badge import Badge
 
 
 class UserBadge(models.Model):

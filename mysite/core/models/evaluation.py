@@ -1,6 +1,6 @@
 from django.db import models
-from user import User
-from phase import Phase
+from .user import User
+from .phase import Phase
 
 
 class Evaluation(models.Model):
