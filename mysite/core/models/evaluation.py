@@ -9,7 +9,7 @@ class Evaluation(models.Model):
     """
     id = models.AutoField(primary_key=True)
     feedback = models.TextField()
-    date = models.DateTimeField()
+    date = models.DateField()
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name="student")
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name="teacher")
     phase = models.ForeignKey(Phase, on_delete=models.CASCADE)
