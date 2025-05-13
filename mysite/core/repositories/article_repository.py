@@ -16,7 +16,8 @@ class ArticleRepository:
     
     def create_article(self, article: Article):
         try:
-            return Article.objects.create(article)
+            return article.save()
+            # return Article.objects.create(title=article.title, content=article.content, status=article.status, author=article.author)
         except Exception as e:
             return e
 

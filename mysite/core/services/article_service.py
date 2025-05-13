@@ -24,6 +24,6 @@ class ArticleService:
         if not author_instance:
             raise ValueError("User not found")
         
-        new_article_instance = Article(title, content, status, author=author_instance)
-        
+        new_article_instance = Article(title=title, content=content, status=status, author=author_instance)
+
         self.article_repository.create_article(new_article_instance)
