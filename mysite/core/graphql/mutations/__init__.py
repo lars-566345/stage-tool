@@ -1,13 +1,15 @@
 import graphene
+
 from .article_mutation import CreateArticle, UpdateArticle, DeleteArticle
+
 from .evaluation_mutation import CreateEvaluation
+ 
+class Mutation(graphene.ObjectType):
 
-class Mutation(
-    CreateArticle,
-    UpdateArticle,
-    DeleteArticle,
+    create_article = CreateArticle.Field()
 
-    CreateEvaluation,
-    graphene.ObjectType
-):
-    pass
+    update_article = UpdateArticle.Field()
+
+    delete_article = DeleteArticle.Field()
+
+    create_evaluation = CreateEvaluation.Field() 
