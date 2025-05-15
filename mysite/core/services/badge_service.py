@@ -4,7 +4,7 @@ class BadgeService:
     def __init__(self):
         self.badge_repository = BadgeRepository()
 
-    def get_all_badges(self, student_id: int):
+    def get_all_badges(self):
         badges = self.badge_repository.get_all_badges()
         if not badges:
             raise ValueError("No badges found")
@@ -15,4 +15,3 @@ class BadgeService:
         if not badge:
             raise ValueError("badge not found")
         return badge
-    

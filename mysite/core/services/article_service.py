@@ -27,3 +27,11 @@ class ArticleService:
         new_article_instance = Article(title=title, content=content, status=status, author=author_instance)
 
         self.article_repository.create_article(new_article_instance)
+
+    def update_article(self, id: int, title=None, content=None, status=None):
+        article_instance = self.article_repository.get_article_by_id(id)
+
+        if not article_instance:
+            raise ValueError("Article not found")
+        
+        self.article_repository.update_article(article_instance, title, content, status)
