@@ -3,7 +3,7 @@ from .article_mutation import CreateArticle, UpdateArticle, DeleteArticle
 from .badge_mutation import CreateBadge, UpdateBadge, DeleteBadge
 from .evaluation_mutation import CreateEvaluation
 from .phase_mutation import CreatePhase, UpdatePhase, DeletePhase
-from .user_mutation import CreateUser, UpdateUser
+from .user_mutation import CreateUser, UpdateUser, DeleteUser
 
 class Mutation(graphene.ObjectType):
     create_article = CreateArticle.Field()
@@ -22,5 +22,6 @@ class Mutation(graphene.ObjectType):
 
     create_user = CreateUser.Field()
     update_user = UpdateUser.Field()
+    delete_user = DeleteUser.Field()
 
 
