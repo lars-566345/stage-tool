@@ -12,3 +12,9 @@ class EvaluationRepository:
             return Evaluation.objects.get(id=id)
         except Evaluation.DoesNotExist:
             return None
+        
+    def create_evaluation(self, evaluation: Evaluation):
+        try:
+            return evaluation.save()
+        except Exception as e:
+            return e
