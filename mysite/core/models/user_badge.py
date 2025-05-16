@@ -1,6 +1,6 @@
 from django.db import models
-from .user import User
 from .badge import Badge
+from .profile import Profile
 
 
 class UserBadge(models.Model):
@@ -9,8 +9,8 @@ class UserBadge(models.Model):
     """
     id = models.AutoField(primary_key=True)
     earned_on = models.DateTimeField(auto_now_add=True)
-    earned_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="earned_by")
-    given_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="given_by")
+    earned_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="earned_by")
+    given_by = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="given_by")
     badge = models.ForeignKey(Badge, on_delete=models.CASCADE)
 
 
