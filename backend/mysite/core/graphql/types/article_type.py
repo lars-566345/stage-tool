@@ -1,6 +1,6 @@
 from graphene_django import DjangoObjectType
 from ...models.article import Article
-from ...models.user import User
+from ...models.profile import Profile
 
 class ArticleType(DjangoObjectType):
     class Meta:

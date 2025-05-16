@@ -1,5 +1,4 @@
 from django.db import models
-from .user import User
 from .phase import Phase
 from .article import Article
 

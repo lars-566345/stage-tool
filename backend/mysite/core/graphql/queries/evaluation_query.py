@@ -1,6 +1,6 @@
 import graphene
 from ..types.evaluation_type import EvaluationType
-from ..types.user_type import UserType
+from ..types.profile_type import ProfileType
 from ...services.evaluation_service import EvaluationService
 
 class GetEvaluationsByStudentId(graphene.ObjectType):

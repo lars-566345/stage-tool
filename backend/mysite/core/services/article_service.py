@@ -1,10 +1,10 @@
 from ..repositories.article_repository import *
-from ..repositories.user_repository import *
+from ..repositories.profile_repository import *
 
 class ArticleService:
     def __init__(self):
         self.article_repository = ArticleRepository()
-        self.user_repository = UserRepository()
+        self.profile_repository = ProfileRepository()
 
     def get_all_articles(self):
         articles = self.article_repository.get_all_articles()
@@ -19,10 +19,10 @@ class ArticleService:
         return article
     
     def create_article(self, title: str, content: str, status: int, author: int):
-        author_instance = self.user_repository.get_user_by_id(author)
+        author_instance = self.profile_repository.get_profile_by_user_id(author)
 
         if not author_instance:
-            raise ValueError("User not found")
+            raise ValueError("Profile not found")
         
         new_article_instance = Article(title=title, content=content, status=status, author=author_instance)
 

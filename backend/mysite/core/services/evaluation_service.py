@@ -1,12 +1,12 @@
 from ..repositories.evaluation_repository import *
-from ..repositories.user_repository import *
+from ..repositories.profile_repository import *
 from ..repositories.phase_repository import *
 from datetime import datetime, date
 
 class EvaluationService:
     def __init__(self):
         self.evaluation_repository = EvaluationRepository()
-        self.user_repository = UserRepository()
+        self.profile_repository = ProfileRepository()
         self.phase_repository = PhaseRepository()
 
     def get_evaluations_by_student_id(self, student_id: int):
@@ -22,8 +22,8 @@ class EvaluationService:
         return evaluation
     
     def create_evaluation(self, feedback: str, date: date, student: int, teacher: int, phase: int):
-        student_instance = self.user_repository.get_user_by_id(student)
-        teacher_instance = self.user_repository.get_user_by_id(teacher)
+        student_instance = self.profile_repository.get_profile_by_user_id(student)
+        teacher_instance = self.profile_repository.get_profile_by_user_id(teacher)
         phase_instance = self.phase_repository.get_phase_by_id(phase)
 
         if not student_instance:

@@ -1,6 +1,6 @@
 import graphene
 from ..types.article_type import ArticleType
-from ..types.user_type import UserType
+from ..types.profile_type import ProfileType
 from ...services.article_service import ArticleService
 
 class GetAllArticles(graphene.ObjectType):

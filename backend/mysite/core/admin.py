@@ -10,4 +10,4 @@ admin.site.register(Profile)
 admin.site.register(TeacherStudent)
 
 admin.site.register(ArticlePhase)
-admin.site.register(UserBadge)
+admin.site.register(ProfileBadge)

@@ -3,7 +3,7 @@ from .badge import Badge
 from .profile import Profile
 
 
-class UserBadge(models.Model):
+class ProfileBadge(models.Model):
     """
     Model representing a relationship between Badge and User
     """
