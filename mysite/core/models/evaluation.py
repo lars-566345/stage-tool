@@ -16,4 +16,4 @@ class Evaluation(models.Model):
 
 
     def __str__(self):
-        return str(self.id)
+        return f"{self.teacher} - {self.student} - {str(self.date)}"

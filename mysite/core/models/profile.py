@@ -6,4 +6,4 @@ class Profile(models.Model):
     is_student = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Profile of {self.user.username}"
+        return f"{self.user.first_name} {self.user.last_name}"

@@ -15,4 +15,4 @@ class UserBadge(models.Model):
 
 
     def __str__(self):
-        return str(self.id)
+        return f"{str(self.earned_by.user.first_name)} - {self.badge.title}"
