@@ -5,3 +5,5 @@ from .badge import *
 from .evaluation import *
 from .article_phase import *
 from .user_badge import *
+from .profile import *
+from .teacher_student import *

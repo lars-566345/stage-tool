@@ -1,5 +1,5 @@
 from django.db import models
-from .user import User
+from .profile import Profile
 
 
 class Article(models.Model):
@@ -12,7 +12,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.IntegerField()
-    author = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=1)
+    author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default=1)
 
     def __str__(self):
         return self.title
