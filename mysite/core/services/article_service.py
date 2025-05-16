@@ -35,3 +35,12 @@ class ArticleService:
             raise ValueError("Article not found")
         
         self.article_repository.update_article(article_instance, title, content, status)
+
+
+    def delete_article(self, id: int):
+        article_instance = self.article_repository.get_article_by_id(id)
+
+        if not article_instance:
+            raise ValueError("Article not found")
+        
+        self.article_repository.delete_article(id)

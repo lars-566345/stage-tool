@@ -1,5 +1,5 @@
 import graphene
-from .article_mutation import CreateArticle, UpdateArticle
+from .article_mutation import CreateArticle, UpdateArticle, DeleteArticle
 from .badge_mutation import CreateBadge, UpdateBadge
 from .evaluation_mutation import CreateEvaluation
 from .phase_mutation import CreatePhase, UpdatePhase
@@ -8,6 +8,7 @@ from .user_mutation import CreateUser, UpdateUser
 class Mutation(graphene.ObjectType):
     create_article = CreateArticle.Field()
     update_article = UpdateArticle.Field()
+    delete_article = DeleteArticle.Field()
 
     create_badge = CreateBadge.Field()
     update_badge = UpdateBadge.Field()
