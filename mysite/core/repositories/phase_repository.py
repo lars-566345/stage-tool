@@ -34,5 +34,5 @@ class PhaseRepository:
             phase = self.get_phase_by_id(id)
             phase.delete()
             return True
-        except phase.DoesNotExist:
+        except Phase.DoesNotExist:
             return False
