@@ -18,7 +18,7 @@ class ArticleService:
             raise ValueError("Article not found")
         return article
     
-    def create_article(self, title, content, status, author):
+    def create_article(self, title: str, content: str, status: int, author: int):
         author_instance = self.user_repository.get_user_by_id(author)
 
         if not author_instance:
@@ -27,3 +27,20 @@ class ArticleService:
         new_article_instance = Article(title=title, content=content, status=status, author=author_instance)
 
         self.article_repository.create_article(new_article_instance)
+
+    def update_article(self, id: int, title: str = None, content: str = None, status: int = None):
+        article_instance = self.article_repository.get_article_by_id(id)
+
+        if not article_instance:
+            raise ValueError("Article not found")
+        
+        self.article_repository.update_article(article_instance, title, content, status)
+
+
+    def delete_article(self, id: int):
+        article_instance = self.article_repository.get_article_by_id(id)
+
+        if not article_instance:
+            raise ValueError("Article not found")
+        
+        self.article_repository.delete_article(id)

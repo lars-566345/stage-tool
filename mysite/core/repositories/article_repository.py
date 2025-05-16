@@ -17,19 +17,19 @@ class ArticleRepository:
     def create_article(self, article: Article):
         try:
             return article.save()
-            # return Article.objects.create(title=article.title, content=article.content, status=article.status, author=article.author)
         except Exception as e:
             return e
 
-    def update_article(self, article: Article):
+    def update_article(self, article: Article, title: str = None, content: str = None, status: str = None):
         try:
-            for field in article._meta.fields:
-                field_name = field.name
-
-                if field_name == 'id':
-                    continue
-
-                setattr(article, field_name, getattr(article, field_name))
+            if title is not None:
+                article.title = title
+            
+            if content is not None:
+                article.content = content
+            
+            if status is not None:
+                article.status = status
 
             article.save()
             return True

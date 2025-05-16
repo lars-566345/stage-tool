@@ -10,8 +10,8 @@ class CreateUser(graphene.Mutation):
 
     user = graphene.Field(UserType)
 
-    def mutate(self, info, content):
-        user = UserService().create_user(content)
+    def mutate(self, info, name, is_student, is_admin):
+        user = UserService().create_user(name, is_student, is_admin)
         return CreateUser(user=user)
 
 
