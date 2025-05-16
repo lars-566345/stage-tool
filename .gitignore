@@ -11,6 +11,16 @@ db.sqlite3
 db.sqlite3-journal
 media
 
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
 ### Ramon zijn test comment
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
