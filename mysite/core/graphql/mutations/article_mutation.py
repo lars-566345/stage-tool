@@ -29,7 +29,7 @@ class UpdateArticle(graphene.Mutation):
         article = ArticleService().update_article(id, title, content, status)
         return UpdateArticle(article=article)
 
-## Not implemented in __init__.py
+
 class DeleteArticle(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
