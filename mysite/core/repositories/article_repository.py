@@ -17,11 +17,10 @@ class ArticleRepository:
     def create_article(self, article: Article):
         try:
             return article.save()
-            # return Article.objects.create(title=article.title, content=article.content, status=article.status, author=article.author)
         except Exception as e:
             return e
 
-    def update_article(self, article: Article, title=None, content=None, status=None):
+    def update_article(self, article: Article, title: str = None, content: str = None, status: str = None):
         try:
             if title is not None:
                 article.title = title
