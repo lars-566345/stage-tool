@@ -13,7 +13,6 @@ class LoginMutation(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, username, password):
-        print(f"Mutate called with username={username}")
         request = info.context  # Django HttpRequest object
         user = authenticate(request, username=username, password=password)
         if user is None:

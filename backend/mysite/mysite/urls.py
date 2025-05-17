@@ -10,7 +10,7 @@ from core.graphql.middleware.login import login_required_middleware
 
 validation_rules = [
     depth_limit_validator(max_depth=3),
-    #DisableIntrospection
+    DisableIntrospection
 ]
 
 urlpatterns = [

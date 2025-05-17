@@ -16,14 +16,3 @@ class CustomGraphQLView(GraphQLView):
             return any(name in query for name in ["login", "refreshToken"])
         except Exception:
             return False
-
-    def _is_csrf_exempt_mutation(self, request):
-        if request.method.lower() != 'post':
-            return False
-
-        try:
-            body = json.loads(request.body)
-            query = body.get("query", "")
-            return any(name in query for name in ["login", "refreshToken"])
-        except Exception:
-            return False
