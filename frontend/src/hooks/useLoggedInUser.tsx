@@ -12,6 +12,6 @@ const GET_ME = gql`
 
 export const useLoggedInUser = () => {
   const { data, loading, error } = useQuery(GET_ME);
-  return { user: data?.me, loading, error };
+  return { user: data?.me, loading, error, isAuthenticated: !!data?.me, };
 };
 

@@ -8,9 +8,10 @@ from core.graphql.views import CustomGraphQLView
 from core.graphql.middleware.cookie import cookie_jwt_middleware
 from core.graphql.middleware.login import login_required_middleware
 
+#Add specific schema's/rework apolloclient in react to not require Introspection
 validation_rules = [
     depth_limit_validator(max_depth=3),
-    DisableIntrospection
+    #DisableIntrospection
 ]
 
 urlpatterns = [
