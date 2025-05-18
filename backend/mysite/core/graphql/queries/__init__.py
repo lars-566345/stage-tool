@@ -1,7 +1,7 @@
 import graphene
 from .article_query import GetAllArticles, GetArticleById
 from .badge_query import GetAllBadges, GetBadgeById
-from .evaluation_query import GetEvaluationsByStudentId, GetEvaluationById
+from .evaluation_query import GetEvaluationsByStudentId, GetEvaluationById, GetMyEvaluations
 from .phase_query import GetAllPhases, GetPhaseById
 from .profile_query import GetProfileById, GetLoggedInUser
 
@@ -14,6 +14,7 @@ class Query(
 
     GetEvaluationsByStudentId,
     GetEvaluationById,
+    GetMyEvaluations,
 
     GetAllPhases,
     GetPhaseById,

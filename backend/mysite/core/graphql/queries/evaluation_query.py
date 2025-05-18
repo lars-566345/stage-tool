@@ -14,3 +14,12 @@ class GetEvaluationById(graphene.ObjectType):
 
     def resolve_evaluation(self, info, id):
         return EvaluationService().get_evaluation_by_id(id)
+    
+class GetMyEvaluations(graphene.ObjectType):
+    my_evaluations = graphene.List(EvaluationType)
+
+    def resolve_my_evaluations(self, info):
+        user = info.context.user
+        if user.is_anonymous:
+            return None
+        return EvaluationService().get_evaluations_by_student_id(user.id)
