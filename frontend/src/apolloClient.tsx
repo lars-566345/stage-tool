@@ -1,4 +1,3 @@
-// apollo-client.ts
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
@@ -9,11 +8,13 @@ function getCookie(name: string): string | null {
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:8000/graphql/',
-  credentials: 'include', // MUST be included to send cookies
+  credentials: 'include', // must include cookies on cross-origin requests
 });
 
 const authLink = setContext((_, { headers }) => {
   const csrfToken = getCookie('csrftoken');
+
+
   return {
     headers: {
       ...headers,

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 interface TokenAuthResponse {
   data?: {
-    tokenAuth?: {
+    login?: {
       success: boolean;
       errors?: Record<string, string[]>;
       profile?: {
@@ -16,7 +16,6 @@ interface TokenAuthResponse {
 }
 
 function getCookie(name: string): string | null {
-  console.log("this works")
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   return match ? decodeURIComponent(match[2]) : null;
 }
@@ -52,14 +51,10 @@ const LoginForm: React.FC = () => {
         headers,
         body: JSON.stringify({
           query: `
-            mutation TokenAuth($username: String!, $password: String!) {
-              tokenAuth(username: $username, password: $password) {
+            mutation Login($username: String!, $password: String!) {
+              login(username: $username, password: $password) {
                 success
                 errors
-                profile {
-                  firstName
-                  lastName
-                }
                 token
               }
             }
@@ -70,8 +65,8 @@ const LoginForm: React.FC = () => {
 
       const result: TokenAuthResponse = await response.json();
 
-      if (result.data?.tokenAuth?.success) {
-        const profile = result.data.tokenAuth.profile;
+      if (result.data?.login?.success) {
+        const profile = result.data.login.profile;
         if (profile) {
           setProfileName(`${profile.firstName} ${profile.lastName}`);
         }

@@ -1,10 +1,11 @@
+# myapp/graphql/mutations.py
+
 import graphene
-from django.contrib.auth import authenticate, login
-from ..types.profile_type import ProfileType
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from graphql_jwt.shortcuts import get_token
 
 class LoginMutation(graphene.Mutation):
-    profile = graphene.Field(ProfileType)
+    token = graphene.String()
     success = graphene.Boolean()
     errors = graphene.String()
 
@@ -13,12 +14,11 @@ class LoginMutation(graphene.Mutation):
         password = graphene.String(required=True)
 
     def mutate(self, info, username, password):
-        request = info.context  # Django HttpRequest object
-        user = authenticate(request, username=username, password=password)
-        if user is None:
+        user = authenticate(info.context, username=username, password=password)
+        if not user:
             return LoginMutation(success=False, errors="Invalid credentials")
 
-        login(info.context, user)
+        token = get_token(user)
+        info.context.jwt_cookie = token  # Save JWT token on request in cookie
 
-        profile = getattr(user, "profile", None)
-        return LoginMutation(success=True, profile=profile)
+        return LoginMutation(token=token, success=True, errors=None)

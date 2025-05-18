@@ -44,12 +44,15 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    #KEEP THIS ORDER OTHERWISE AUTHENTICATIONMIDDLEWARE OVERIDES JWTMIDDLEWARE
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'core.graphql.middleware.JWTAuthenticationMiddleware',
+    ##########################################################################
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -126,12 +129,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# settings.py
+
 GRAPHENE = {
-    'SCHEMA': 'backend\mysite\core\graphql\schema.py',
+    'SCHEMA': 'core.graphql.schema.schema',
     'MIDDLEWARE': [
-        'graphql_jwt.middleware.JSONWebTokenMiddleware',
-        'core.graphql.middleware.cookie.JWTAuthFromCookieMiddleware',
-        'core.graphql.middleware.login.login_required_middleware',
+        'core.graphql.middleware.CookieJWTMiddleware',
+        'core.graphql.middleware.login_required_middleware',
     ],
 }
 
@@ -140,28 +144,18 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-
-GRAPHQL_JWT = {
-    'JWT_VERIFY_EXPIRATION': True,
-    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
-    'JWT_ALLOW_ANY_CLASSES': [
-        'core.graphql.mutations.login_mutation.LoginMutation',
-        'core.graphql.mutations.login_mutation.RefreshTokenMutation',
-    ]
-}
-
-
+# CORS & CSRF config if your frontend runs on localhost:3000 or similar
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
     "http://localhost:5173",
 ]
-
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
     "http://localhost:5173",
 ]
 
-# Important for cookie-based auth:
-SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SAMESITE = "Lax"
-CSRF_COOKIE_HTTPONLY = False  
-CSRF_COOKIE_SECURE = False  
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SECURE = True

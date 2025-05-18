@@ -1,0 +1,61 @@
+import jwt
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
+from graphql_jwt.utils import jwt_decode, get_user_by_payload
+from django.utils.deprecation import MiddlewareMixin
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class JWTAuthenticationMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        token = request.COOKIES.get("jwt")
+        request.user = AnonymousUser()
+
+        if not token:
+            return
+
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            username = payload.get("username")
+            if username:
+                user = User.objects.filter(username=username).first()
+                if user:
+                    request.user = user
+        except Exception:
+            pass
+
+
+class CookieJWTMiddleware:
+    def __call__(self, next, root, info, **kwargs):
+        request = info.context
+        jwt_token = request.COOKIES.get('jwt')
+        if jwt_token:
+            try:
+                payload = jwt_decode(jwt_token)
+                user = get_user_by_payload(payload)
+                request.user = user
+            except Exception:
+                request.user = AnonymousUser()
+        else:
+            request.user = AnonymousUser()
+
+        return next(root, info, **kwargs)
+
+
+def login_required_middleware(next, root, info, **kwargs):
+    EXEMPT_OPERATIONS = ["login", "tokenAuth", "refreshToken", "verifyToken", "revokeToken"]
+
+    # Only check at the root field level
+    if root is None:
+        if info.field_name.lower() in (op.lower() for op in EXEMPT_OPERATIONS):
+            return next(root, info, **kwargs)
+
+        print(info.context.user)
+        user = info.context.user
+        if not user or not user.is_authenticated:
+            from graphql import GraphQLError
+            raise GraphQLError("Authentication required.")
+
+    # For subfields, just continue without checking again
+    return next(root, info, **kwargs)

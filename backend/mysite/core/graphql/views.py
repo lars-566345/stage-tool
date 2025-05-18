@@ -1,18 +1,25 @@
-import json
-from django.middleware.csrf import get_token
+# myapp/views.py
+
 from graphene_django.views import GraphQLView
-from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
 
 class CustomGraphQLView(GraphQLView):
     def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
-    def _is_csrf_exempt_mutation(self, request):
-        if request.method.lower() != 'post':
-            return False
-        try:
-            body = json.loads(request.body)
-            query = body.get("query", "")
-            return any(name in query for name in ["login", "refreshToken"])
-        except Exception:
-            return False
+        # Set CSRF cookie
+        get_token(request)
+
+        response = super().dispatch(request, *args, **kwargs)
+
+        token = getattr(request, 'jwt_cookie', None)
+        if token:
+            response.set_cookie(
+                key='jwt',
+                value=token,
+                httponly=True,
+                secure=False,
+                samesite='Lax',
+                path='/',
+                max_age=60 * 60 * 24,
+            )
+        return response
