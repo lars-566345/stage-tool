@@ -20,19 +20,19 @@ function App() {
 
   return (
     <ApolloProvider client={client} >
-      <DrawerProvider>
-        <GlobalDrawer />
-          <Routes>
-            <Route path="/login" element={<LoginForm />} />
-      
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="knowledgebase" element={<Knowledgebase />} />
-              <Route path="timeline" element={<Timeline />} />
-              <Route path="evaluations" element={<Evaluations />} />
+    <DrawerProvider>
+      <GlobalDrawer />
+        <Routes>
+          <Route path="/login" element={<LoginForm />} />
+    
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="knowledgebase" element={<Knowledgebase />} />
+            <Route path="timeline" element={<Timeline />} />
+            <Route path="evaluations" element={<Evaluations />} />
 
-            <Route path="/" element={<Navigate to="/login" replace />} />
-          </Routes>
-      </DrawerProvider>
+          <Route path="/" element={<Navigate to="/login" replace />} />
+        </Routes>
+    </DrawerProvider>
     </ApolloProvider>
   );
 }
