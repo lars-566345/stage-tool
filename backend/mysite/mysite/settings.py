@@ -134,7 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE = {
     'SCHEMA': 'core.graphql.schema.schema',
     'MIDDLEWARE': [
-        'core.graphql.middleware.CookieJWTMiddleware',
         'core.graphql.middleware.login_required_middleware',
     ],
 }

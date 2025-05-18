@@ -26,23 +26,6 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
             pass
 
 
-class CookieJWTMiddleware:
-    def __call__(self, next, root, info, **kwargs):
-        request = info.context
-        jwt_token = request.COOKIES.get('jwt')
-        if jwt_token:
-            try:
-                payload = jwt_decode(jwt_token)
-                user = get_user_by_payload(payload)
-                request.user = user
-            except Exception:
-                request.user = AnonymousUser()
-        else:
-            request.user = AnonymousUser()
-
-        return next(root, info, **kwargs)
-
-
 def login_required_middleware(next, root, info, **kwargs):
     EXEMPT_OPERATIONS = ["login", "tokenAuth", "refreshToken", "verifyToken", "revokeToken"]
 
