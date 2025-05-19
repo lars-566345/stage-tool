@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.decorators.csrf import csrf_protect
-from core.graphql.views import CustomGraphQLView
+from core.graphql.views import CustomGraphQLView, get_csrf_token
 from core.graphql.schema import schema
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
             )
         ),
     ),
+    path("csrf/", get_csrf_token),
 ]

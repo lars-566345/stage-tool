@@ -1,7 +1,7 @@
-# myapp/views.py
-
 from graphene_django.views import GraphQLView
 from django.middleware.csrf import get_token
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
 
 class CustomGraphQLView(GraphQLView):
     def dispatch(self, request, *args, **kwargs):
@@ -23,3 +23,7 @@ class CustomGraphQLView(GraphQLView):
                 max_age=60 * 60 * 24,
             )
         return response
+
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return JsonResponse({"detail": "CSRF cookie set"})

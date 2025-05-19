@@ -12,7 +12,7 @@ import client from "./apolloClient";
 
 function App() {
   useEffect(() => {
-    fetch('http://localhost:8000/graphql/', {
+    fetch('http://localhost:8000/csrf/', {
       method: 'GET',
       credentials: 'include',
     });
