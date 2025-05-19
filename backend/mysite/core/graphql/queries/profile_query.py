@@ -18,6 +18,7 @@ class GetLoggedInUser(graphene.ObjectType):
         if user.is_anonymous:
             return None
         return getattr(user, 'profile', None)    
+    
 ## class GetAssignedStudents(graphene.ObjectType):
 ## class GetAssignedMentor(graphene.ObjectType):
 ## make sure student -> mentor is one to many in userproperty

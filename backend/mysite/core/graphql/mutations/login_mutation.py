@@ -17,6 +17,6 @@ class LoginMutation(graphene.Mutation):
             return LoginMutation(success=False, errors="Invalid credentials")
 
         token = get_token(user)
-        info.context.jwt_cookie = token  # Save JWT token on request in cookie
+        info.context.jwt_cookie = token
 
         return LoginMutation(token=token, success=True, errors=None)

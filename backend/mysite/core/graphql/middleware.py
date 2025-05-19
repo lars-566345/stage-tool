@@ -1,7 +1,6 @@
 import jwt
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from graphql_jwt.utils import jwt_decode, get_user_by_payload
 from django.utils.deprecation import MiddlewareMixin
 from django.contrib.auth import get_user_model
 
@@ -26,7 +25,7 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
             pass
 
 class LoginRequiredMiddleware(MiddlewareMixin):
-    EXEMPT_OPERATIONS = ["login", "tokenAuth", "refreshToken", "verifyToken", "revokeToken"]
+    EXEMPT_OPERATIONS = ["login"]
 
     def resolve(self, next, root, info, **kwargs):
         # Only check at the root field level

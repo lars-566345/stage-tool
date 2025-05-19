@@ -130,8 +130,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# settings.py
-
 GRAPHENE = {
     'SCHEMA': 'core.graphql.schema.schema',
     'MIDDLEWARE': [
@@ -143,7 +141,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# CORS & CSRF config if your frontend runs on localhost:3000 or similar
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
