@@ -1,7 +1,9 @@
 import graphene
+
 from ..types.article_type import ArticleType
 from ..types.profile_type import ProfileType
 from ...services.article_service import ArticleService
+
 
 class GetAllArticles(graphene.ObjectType):
     articles = graphene.List(ArticleType)

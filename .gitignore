@@ -14,7 +14,7 @@ media
 ### react ###
 .DS_*
 *.log
-logs
+logsvso
 **/*.backup.*
 **/*.back.*
 
