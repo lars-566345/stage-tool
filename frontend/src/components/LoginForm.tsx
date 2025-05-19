@@ -71,8 +71,8 @@ const LoginForm: React.FC = () => {
           setProfileName(`${profile.firstName} ${profile.lastName}`);
         }
         navigate("/dashboard")
-      } else if (result.data?.tokenAuth?.errors) {
-        const errors = result.data.tokenAuth.errors;
+      } else if (result.data?.login?.errors) {
+        const errors = result.data.login.errors;
         const messages = Object.values(errors)
           .flat()
           .join(" ");
