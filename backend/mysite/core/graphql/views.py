@@ -5,10 +5,6 @@ from django.http import JsonResponse
 
 class CustomGraphQLView(GraphQLView):
     def dispatch(self, request, *args, **kwargs):
-
-        # Set CSRF cookie
-        get_token(request)
-
         response = super().dispatch(request, *args, **kwargs)
 
         token = getattr(request, 'jwt_cookie', None)

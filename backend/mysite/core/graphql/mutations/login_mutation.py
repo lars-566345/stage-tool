@@ -1,5 +1,3 @@
-# myapp/graphql/mutations.py
-
 import graphene
 from django.contrib.auth import authenticate
 from graphql_jwt.shortcuts import get_token
