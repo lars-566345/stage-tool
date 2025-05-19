@@ -47,6 +47,7 @@ MIDDLEWARE = [
     #KEEP THIS ORDER OTHERWISE AUTHENTICATIONMIDDLEWARE OVERIDES JWTMIDDLEWARE
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'core.graphql.middleware.LoginRequiredMiddleware',
     'core.graphql.middleware.JWTAuthenticationMiddleware',
     ##########################################################################
     'corsheaders.middleware.CorsMiddleware',
@@ -134,7 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE = {
     'SCHEMA': 'core.graphql.schema.schema',
     'MIDDLEWARE': [
-        'core.graphql.middleware.login_required_middleware',
     ],
 }
 

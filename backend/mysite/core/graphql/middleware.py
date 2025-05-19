@@ -25,20 +25,20 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
         except Exception:
             pass
 
-
-def login_required_middleware(next, root, info, **kwargs):
+class LoginRequiredMiddleware(MiddlewareMixin):
     EXEMPT_OPERATIONS = ["login", "tokenAuth", "refreshToken", "verifyToken", "revokeToken"]
 
-    # Only check at the root field level
-    if root is None:
-        if info.field_name.lower() in (op.lower() for op in EXEMPT_OPERATIONS):
-            return next(root, info, **kwargs)
+    def resolve(self, next, root, info, **kwargs):
+        # Only check at the root field level
+        if root is None:
+            if info.field_name.lower() in (op.lower() for op in self.EXEMPT_OPERATIONS):
+                return next(root, info, **kwargs)
 
-        print(info.context.user)
-        user = info.context.user
-        if not user or not user.is_authenticated:
-            from graphql import GraphQLError
-            raise GraphQLError("Authentication required.")
+            print(info.context.user)
+            user = info.context.user
+            if not user or not user.is_authenticated:
+                from graphql import GraphQLError
+                raise GraphQLError("Authentication required.")
 
-    # For subfields, just continue without checking again
-    return next(root, info, **kwargs)
+        # For subfields, just continue without checking again
+        return next(root, info, **kwargs)
