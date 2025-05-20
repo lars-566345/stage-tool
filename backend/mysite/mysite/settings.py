@@ -47,8 +47,7 @@ MIDDLEWARE = [
     #KEEP THIS ORDER OTHERWISE AUTHENTICATIONMIDDLEWARE OVERIDES JWTMIDDLEWARE
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'core.graphql.middleware.LoginRequiredMiddleware',
-    'core.graphql.middleware.JWTAuthenticationMiddleware',
+
     ##########################################################################
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -133,6 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE = {
     'SCHEMA': 'core.graphql.schema.schema',
     'MIDDLEWARE': [
+        'core.graphql.middleware.LoginRequiredMiddleware',
+        'core.graphql.middleware.JWTAuthenticationMiddleware',
     ],
 }
 
@@ -151,7 +152,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
 ]
 
-SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SECURE = True
