@@ -11,14 +11,18 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables
-load_dotenv(os.path.join(BASE_DIR, '.env'))
+try:
+    load_dotenv(os.path.join(BASE_DIR, '.env'))
+except Exception:
+    pass
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -33,7 +37,6 @@ ALLOWED_HOSTS = ["127.0.0.1", "motivatie-tool.larsdewit.com"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'django.contrib.admin',
