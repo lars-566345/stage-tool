@@ -170,6 +170,8 @@ CORS_ALLOWED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://localhost:5173",
+    "http://motivatie-tool.larsdewit.com"
 ]
 
 SESSION_COOKIE_SAMESITE = "Lax"
