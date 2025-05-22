@@ -175,8 +175,10 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
     "http://localhost:5173",
-    "https://motivatie-tool.larsdewit.com",
+    "http://motivatie-tool.larsdewit.com"
     "http://motivatie-tool.larsdewit.com/api"
+    "https://motivatie-tool.larsdewit.com",
+    "https://motivatie-tool.larsdewit.com/api",
 ]
 
 SESSION_COOKIE_SAMESITE = "Lax"
