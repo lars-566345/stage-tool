@@ -16,4 +16,5 @@ RUN mkdir -p /var/log/gunicorn
 
 RUN touch /var/log/gunicorn/error.log
 
-CMD ["gunicorn", "mysite.wsgi:application", "--bind", "0.0.0.0:8000", "--access-logfile", "/var/log/gunicorn/access.log", "--error-logfile", "/var/log/gunicorn/error.log", "--log-level", "debug"]
+# CMD ["gunicorn", "mysite.wsgi:application", "--bind", "0.0.0.0:8000", "--access-logfile", "/var/log/gunicorn/access.log", "--error-logfile", "/var/log/gunicorn/error.log", "--log-level", "debug"]
+CMD ["python" "manage.py", "runserver"]
