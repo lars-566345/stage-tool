@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { config } from '../../config';
 
 interface TokenAuthResponse {
   data?: {
@@ -45,7 +46,7 @@ const LoginForm: React.FC = () => {
         headers["X-CSRFToken"] = csrfToken;
       }
 
-      const response = await fetch("http://localhost:8000/graphql/", {
+      const response = await fetch(config.apiUrl + "/graphql/", {
         method: "POST",
         credentials: "include",
         headers,

@@ -11,25 +11,32 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables
+try:
+    load_dotenv(os.path.join(BASE_DIR, '.env'))
+except Exception:
+    pass
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nq_#(76)v#-v#r*4)@5^^f9hizh1*v7-x-hoej*$598ipy7qt#'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "motivatie-tool.larsdewit.com"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'django.contrib.admin',
@@ -80,12 +87,25 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv('DB_ENGINE') == 'postgresql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+            'OPTIONS': {'sslmode': 'require'},
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }  
 
 
 # Password validation
@@ -146,13 +166,62 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://motivatie-tool.larsdewit.com",
+    "https://motivatie-tool.larsdewit.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://localhost:5173",
+    "http://motivatie-tool.larsdewit.com",
+    "https://motivatie-tool.larsdewit.com",
 ]
 
+SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = "Lax"
+
+
+# CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SECURE = True
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # Keep Django's default loggers
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',  # or 'simple'
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs/django.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOGGING_LEVEL'),
+            'propagate': True,
+        },
+        'core': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_CORE_APP_LOGGING_LEVEL'),
+            'propagate': False,
+        },
+    }
+}

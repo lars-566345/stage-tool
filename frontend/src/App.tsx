@@ -10,10 +10,11 @@ import Evaluations from './pages/Evaluations';
 import { ApolloProvider } from '@apollo/client';
 import AuthProvider from "./components/AuthProvider";
 import client from "./apolloClient";
+import { config } from '../config';
 
 function App() {
   useEffect(() => {
-    fetch('http://localhost:8000/csrf/', {
+    fetch(config.apiUrl + '/csrf/', {
       method: 'GET',
       credentials: 'include',
     });
