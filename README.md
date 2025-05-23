@@ -1,7 +1,7 @@
 
 # stage-tool
 
-## Environment variables need to run the application
+## Environment variables needed to run the application
 
 ### Django
 
