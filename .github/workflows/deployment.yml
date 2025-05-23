@@ -23,6 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Create log file
+        run: |
+          cd backend/mysite/
+          mkdir -p logs
+          touch logs/django.log
+
       - name: Run Django tests
         run: |
           pwd
