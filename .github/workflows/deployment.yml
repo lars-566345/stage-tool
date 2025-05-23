@@ -25,6 +25,7 @@ jobs:
 
       - name: Run Django tests
         run: |
+          pwd
           cd mysite
           python manage.py test
 
