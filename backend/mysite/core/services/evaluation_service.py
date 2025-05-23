@@ -1,8 +1,8 @@
-import logging
 from ..repositories.evaluation_repository import *
 from ..repositories.profile_repository import *
 from ..repositories.phase_repository import *
-from datetime import datetime, date
+from datetime import date
+import logging
 
 logger = logging.getLogger(__name__)
 

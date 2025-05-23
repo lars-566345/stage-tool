@@ -1,5 +1,5 @@
-import logging
 from ..repositories.badge_repository import *
+import logging
 
 logger = logging.getLogger(__name__)
 
