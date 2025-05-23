@@ -17,9 +17,20 @@
  - DEBUG
  - DJANGO_LOGGING_LEVEL
  - DJANGO_CORE_APP_LOGGING_LEVEL
+ - DJANGO_SUPER_USER_PASSWORD
 
 ### React
 
 > *Put the .env file in the following location: "/frontend/.env"*
 
  - VITE_API_URL
+
+## Get started
+1. Open a terminal
+2. Create a venv (python3 -m venv venv)
+3. Activate the venv
+4. Install the requirements for the backend
+5. Run the custom setup django management command (python manage.py create_test_environment)
+6. Open a second terminal
+7. Install requirements for frontend
+8. Run "npm run dev"
