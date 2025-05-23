@@ -7,6 +7,9 @@ on:
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      DJANGO_SETTINGS_MODULE: mysite.settings
+      SECRET_KEY: dummy_key_for_ci
 
     steps:
       - name: Checkout code
