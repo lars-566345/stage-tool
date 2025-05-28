@@ -13,8 +13,8 @@ urlpatterns = [
                 graphiql=True,
                 schema=schema,
                 middleware=[
-                    JWTAuthenticationMiddleware(),
-                    LoginRequiredMiddleware(),
+                    JWTAuthenticationMiddleware,
+                    LoginRequiredMiddleware,
                 ]
             )
         ),
