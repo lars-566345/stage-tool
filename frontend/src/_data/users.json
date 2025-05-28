@@ -1,0 +1,33 @@
+{
+  "userId": "1",
+  "name": "Lars de Wit",
+  "evaluationDates": ["19-04-2025", "03-05-2025", "24-05-2025"],
+  "timeline": {
+    "currentPhase": 2,
+    "title": "Phase 2",
+    "subtitle": "Interview Preparation"
+  },
+  "semesterCoach": {
+    "name": "John van den Berg",
+    "image": "/img/coachImage.jpg"
+  },
+  "pinnedPosts": [
+    "Update LinkedIn Profile",
+    "Attend Career Fair"
+  ],
+  "badges": [
+    {
+      "label": "Interview Ready",
+      "image": "/img/interviewBadge.png"
+    },
+    {
+      "label": "Top Networker",
+      "image": "/img/networkBadge.png"
+    },
+    {
+      "label": "Resume Master",
+      "image": "/img/resumeBadge.png"
+    }
+  ],
+  "profilePicture": "/img/studentPicture.png"
+}

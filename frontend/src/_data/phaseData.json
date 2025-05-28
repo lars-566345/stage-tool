@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Phase 1\nPreparing for internship",
+    "description": "This phase helps you get ready for the internship application process.",
+    "deliverables": [
+      { "label": "Resume Draft" },
+      { "label": "Company Research" }
+    ],
+    "identity": "This is the IT identity content for Phase 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "title": "Phase 2\nInterview Preparation",
+    "description": "Focus on mock interviews and behavioral prep.",
+    "deliverables": [
+      { "label": "Mock Interview" },
+      { "label": "STAR Stories" }
+    ],
+    "identity": "This is the IT identity content for Phase 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "title": "Phase 3\nNetworking",
+    "description": "Build connections in your field.",
+    "deliverables": [
+      { "label": "LinkedIn Profile" },
+      { "label": "Networking Event Participation" }
+    ],
+    "identity": "This is the IT identity content for Phase 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "title": "Phase 4\nApplication Submission",
+    "description": "Apply to companies and track progress.",
+    "deliverables": [
+      { "label": "Job Application List" },
+      { "label": "Cover Letter Templates" }
+    ],
+    "identity": "This is the IT identity content for Phase 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "title": "Phase 5\nOffer Review",
+    "description": "Understand and evaluate internship offers.",
+    "deliverables": [
+      { "label": "Offer Comparison Chart" },
+      { "label": "Mentor Consultation" }
+    ],
+    "identity": "This is the IT identity content for Phase 5. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    "title": "Phase 6\nOnboarding",
+    "description": "Prepare to start the internship smoothly.",
+    "deliverables": [
+      { "label": "Onboarding Documents" },
+      { "label": "First Week Plan" }
+    ],
+    "identity": "This is the IT identity content for Phase 6. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  }
+]
