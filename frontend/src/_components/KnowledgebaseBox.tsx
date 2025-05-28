@@ -1,0 +1,71 @@
+import React from 'react';
+import { Card, Typography, Box, IconButton } from '@mui/joy';
+import StarIcon from '@mui/icons-material/Star';
+
+interface KnowledgebaseBoxProps {
+  tag: string;
+  title: string;
+  description: string;
+}
+
+const KnowledgebaseBox: React.FC<KnowledgebaseBoxProps> = ({ tag, title, description }) => {
+  return (
+    <Card
+      sx={{
+        borderRadius: 'lg',
+        padding: 2,
+        minWidth: 250,
+        flex: 1,
+        maxWidth: 300,
+        position: 'relative',
+        backgroundColor: '#008387',
+        color: 'white',
+        boxShadow: 'md',
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 12,
+          left: 16,
+          bgcolor: 'white',
+          color: '#008387',
+          px: 1,
+          py: 0.5,
+          borderRadius: 'md',
+          fontSize: 'xs',
+          fontWeight: 'bold',
+        }}
+      >
+        {tag}
+      </Box>
+
+      <IconButton
+        variant="plain"
+        sx={{ position: 'absolute', top: 8, right: 8, color: 'white' }}
+      >
+        <StarIcon />
+      </IconButton>
+
+      <Box sx={{ mt: 4 }}>
+        <Typography level="title-lg" sx={{ color: 'white' }}>{title}</Typography>
+        <Typography level="body-sm" sx={{ mt: 1, color: 'white' }}>
+          {description}
+        </Typography>
+        <Typography
+          level="body-xs"
+          sx={{
+            mt: 2,
+            textAlign: 'right',
+            textDecoration: 'underline',
+            color: 'white',
+          }}
+        >
+          Read more
+        </Typography>
+      </Box>
+    </Card>
+  );
+};
+
+export default KnowledgebaseBox;
