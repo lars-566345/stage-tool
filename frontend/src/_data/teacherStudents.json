@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "name": "Lars de Wit",
+    "semester": 5,
+    "lastEvaluation": "16-02-2025",
+    "profilePicture": "/img/studentPicture.png",
+     "evaluations": [
+      {
+        "date": "08-04-2025",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "date": "01-04-2025",
+        "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Tessa Jansen",
+    "semester": 3,
+    "lastEvaluation": "01-03-2025",
+    "profilePicture": "/img/studentPicture3.png",
+     "evaluations": [
+      {
+        "date": "08-04-2025",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "date": "01-04-2025",
+        "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Noah Meijer",
+    "semester": 4,
+    "lastEvaluation": "20-02-2025",
+    "profilePicture": "/img/studentPicture2.png",
+     "evaluations": [
+      {
+        "date": "08-04-2025",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      },
+      {
+        "date": "01-04-2025",
+        "text": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      }
+    ]
+  }
+]
