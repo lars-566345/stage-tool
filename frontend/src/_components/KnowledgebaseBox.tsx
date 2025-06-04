@@ -6,9 +6,18 @@ interface KnowledgebaseBoxProps {
   tag: string;
   title: string;
   description: string;
+  index: number | string;
+  role?: string;
 }
 
-const KnowledgebaseBox: React.FC<KnowledgebaseBoxProps> = ({ tag, title, description }) => {
+const KnowledgebaseBox: React.FC<KnowledgebaseBoxProps> = ({ tag, title, description, index, role }) => {
+  const handleReadMore = () => {
+    const basePath = role?.startsWith('teacher') ? '/teacher/knowledgebase/' : '/knowledgebase/';
+    const from = role === 'teacher-dashboard' ? 'teacher/dashboard' : 'teacher/knowledgebase';
+    window.history.pushState({}, '', `${basePath}${index}?from=${from}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
   return (
     <Card
       sx={{
@@ -48,17 +57,21 @@ const KnowledgebaseBox: React.FC<KnowledgebaseBoxProps> = ({ tag, title, descrip
       </IconButton>
 
       <Box sx={{ mt: 4 }}>
-        <Typography level="title-lg" sx={{ color: 'white' }}>{title}</Typography>
+        <Typography level="title-lg" sx={{ color: 'white' }}>
+          {title}
+        </Typography>
         <Typography level="body-sm" sx={{ mt: 1, color: 'white' }}>
           {description}
         </Typography>
         <Typography
           level="body-xs"
+          onClick={handleReadMore}
           sx={{
             mt: 2,
             textAlign: 'right',
             textDecoration: 'underline',
             color: 'white',
+            cursor: 'pointer',
           }}
         >
           Read more
