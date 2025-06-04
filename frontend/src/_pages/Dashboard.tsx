@@ -1,13 +1,15 @@
 import React from 'react';
-import Layout from '../_components/Layout';
-import BigBox from '../_components/BigBox';
-import SmallBox from '../_components/SmallBox';
+import Layout from '../Components/Layout';
+import BigBox from '../Components/BigBox';
+import SmallBox from '../Components/SmallBox';
 import { Box, Typography } from '@mui/joy';
-import userData from '../_data/users.json';
+import userData from '../data/users.json';
+import boxData from '../data/knowledgebaseData.json';
 
-interface Timeline {
-  title: string;
-  subtitle: string;
+// Type definitions for imported data
+interface Badge {
+  image: string;
+  label: string;
 }
 
 interface SemesterCoach {
@@ -15,9 +17,9 @@ interface SemesterCoach {
   image: string;
 }
 
-interface Badge {
-  label: string;
-  image: string;
+interface Timeline {
+  title: string;
+  subtitle: string;
 }
 
 interface UserData {
@@ -25,8 +27,12 @@ interface UserData {
   evaluationDates: string[];
   timeline: Timeline;
   semesterCoach: SemesterCoach;
-  pinnedPosts: string[];
   badges: Badge[];
+}
+
+interface KnowledgeBaseItem {
+  title: string;
+  tag: string;
 }
 
 const Dashboard: React.FC = () => {
@@ -35,20 +41,13 @@ const Dashboard: React.FC = () => {
     evaluationDates,
     timeline,
     semesterCoach,
-    pinnedPosts,
-    badges,
+    badges
   } = userData as UserData;
 
   return (
     <Layout>
       <Box sx={{ textAlign: 'center', mb: 5 }}>
-        <Typography
-          sx={{
-            fontSize: { xs: '24px', md: '32px' },
-            fontWeight: 'bold',
-            color: 'black',
-          }}
-        >
+        <Typography sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 'bold', color: 'black' }}>
           {name}
         </Typography>
       </Box>
@@ -176,11 +175,64 @@ const Dashboard: React.FC = () => {
         {/* Pinned Posts */}
         <Box sx={{ flex: 1, minWidth: 300 }}>
           <BigBox title="Pinned Posts">
-            {pinnedPosts.map((post, i) => (
-              <Typography key={i} sx={{ textAlign: 'center', color: 'white' }}>
-                {post}
-              </Typography>
-            ))}
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: 2,
+                overflow: 'hidden',
+              }}
+            >
+              {(boxData as KnowledgeBaseItem[]).map((box, index) => (
+                <Box
+                  key={index}
+                  onClick={() => (window.location.href = `/knowledgebase/${index}?from=dashboard`)}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    padding: 1.5,
+                    borderRadius: 2,
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.02)',
+                    },
+                  }}
+                >
+                  <img
+                    src="/img/knowledgebasePicture.png"
+                    alt={box.title}
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <Box>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        color: 'white',
+                        fontSize: '1rem',
+                      }}
+                    >
+                      {box.title}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: '0.85rem',
+                        color: 'white',
+                        opacity: 0.8,
+                      }}
+                    >
+                      {box.tag}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
           </BigBox>
         </Box>
 
@@ -210,8 +262,6 @@ const Dashboard: React.FC = () => {
                       marginBottom: 8,
                     }}
                   />
-                  {/* Optional: Uncomment if badge label is needed */}
-                  {/* <Typography sx={{ color: 'white' }}>{badge.label}</Typography> */}
                 </Box>
               ))}
             </Box>
