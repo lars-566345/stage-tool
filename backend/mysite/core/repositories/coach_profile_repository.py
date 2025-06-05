@@ -1,15 +1,15 @@
 import logging
-from ..models.profile import Profile
+from ..models.fix import CoachProfile
 
 logger = logging.getLogger(__name__)
 
-class ProfileRepository:
+class CoachProfileRepository:
     def get_profile_by_user_id(self, id: int):
         try:
-            profile = Profile.objects.select_related('user').get(id=id)
+            profile = CoachProfile.objects.select_related('user').get(id=id)
             logger.info(f"Profile retrieved for user id {id}")
             return profile
-        except Profile.DoesNotExist:
+        except CoachProfile.DoesNotExist:
             logger.warning(f"No profile found for user id {id}")
             return None
         except Exception as e:

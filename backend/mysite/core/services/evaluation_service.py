@@ -1,6 +1,6 @@
 from ..repositories.evaluation_repository import *
-from ..repositories.profile_repository import *
-from ..repositories.phase_repository import *
+from ..repositories.coach_profile_repository import *
+from ..repositories.student_profile_repository import *
 from datetime import date
 import logging
 
@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 class EvaluationService:
     def __init__(self):
         self.evaluation_repository = EvaluationRepository()
-        self.profile_repository = ProfileRepository()
-        self.phase_repository = PhaseRepository()
+        self.student_profile_repository = StudentProfileRepository()
+        self.coach_profile_repository = CoachProfileRepository()
 
     def get_evaluations_by_student_id(self, student_id: int):
         logger.info(f"Fetching evaluations for student_id={student_id}")
@@ -30,11 +30,10 @@ class EvaluationService:
         logger.debug(f"Found evaluation: {evaluation}")
         return evaluation
     
-    def create_evaluation(self, feedback: str, date: date, student: int, teacher: int, phase: int):
-        logger.info(f"Creating evaluation for student={student}, teacher={teacher}, phase={phase}")
-        student_instance = self.profile_repository.get_profile_by_user_id(student)
-        teacher_instance = self.profile_repository.get_profile_by_user_id(teacher)
-        phase_instance = self.phase_repository.get_phase_by_id(phase)
+    def create_evaluation(self, feedback: str, date: date, student: int, teacher: int):
+        logger.info(f"Creating evaluation for student={student}, teacher={teacher}")
+        student_instance = self.student_profile_repository.get_profile_by_user_id(student)
+        teacher_instance = self.coach_profile_repository.get_profile_by_user_id(teacher)
 
         if not student_instance:
             logger.error(f"Student not found: {student}")
@@ -43,18 +42,13 @@ class EvaluationService:
         if not teacher_instance:
             logger.error(f"Teacher not found: {teacher}")
             raise ValueError("Teacher not found")
-        
-        if not phase_instance:
-            logger.error(f"Phase not found: {phase}")
-            raise ValueError("Phase not found")
 
         new_evaluation_instance = Evaluation(
             feedback=feedback,
             date=date,
             student=student_instance,
             teacher=teacher_instance,
-            phase=phase_instance
         )
 
         self.evaluation_repository.create_evaluation(new_evaluation_instance)
-        logger.info(f"Evaluation created successfully for student={student}, teacher={teacher}, phase={phase}")
+        logger.info(f"Evaluation created successfully for student={student}, teacher={teacher}")
