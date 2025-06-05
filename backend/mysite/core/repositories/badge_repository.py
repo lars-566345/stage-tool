@@ -1,4 +1,4 @@
-from ..models.badge import Badge
+from ..models.fix import Badge
 import logging
 
 logger = logging.getLogger(__name__)

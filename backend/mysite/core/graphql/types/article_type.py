@@ -1,8 +1,8 @@
+from ...models.fix import KnowledgeBaseArticle
 from graphene_django import DjangoObjectType
-from ...models.article import Article
-from ...models.profile import Profile
 
 class ArticleType(DjangoObjectType):
     class Meta:
-        model = Article
-        fields = "__all__"
+        model = KnowledgeBaseArticle
+        fields = ('id', 'tag', 'title', 'content', 'created_at')
+        exclude_fields = ('favorited_by',)

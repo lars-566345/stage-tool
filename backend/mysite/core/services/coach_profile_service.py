@@ -1,11 +1,11 @@
-from ..repositories.profile_repository import *
+from ..repositories.coach_profile_repository import *
 import logging
 
 logger = logging.getLogger(__name__)
 
-class ProfileService:
+class CoachProfileService:
     def __init__(self):
-        self.profile_repository = ProfileRepository()
+        self.profile_repository = CoachProfileRepository()
 
     def get_profile_by_user_id(self, id: int):
         logger.info(f"Fetching profile for user_id={id}")
@@ -13,7 +13,7 @@ class ProfileService:
     
         if not profile:
             logger.warning(f"No profile found for user_id={id}")
-            raise Profile.DoesNotExist
+            raise CoachProfile.DoesNotExist
         
         logger.debug(f"Profile found for user_id={id}: {profile}")
         return profile

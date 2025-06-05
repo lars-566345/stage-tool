@@ -1,5 +1,5 @@
 from ..repositories.article_repository import *
-from ..repositories.profile_repository import *
+from ..repositories.coach_profile_repository import *
 import logging
 
 logger = logging.getLogger(__name__)
@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 class ArticleService:
     def __init__(self):
         self.article_repository = ArticleRepository()
-        self.profile_repository = ProfileRepository()
+        self.profile_repository = CoachProfileRepository()
 
     def get_all_articles(self):
         logger.info("Fetching all articles")
@@ -27,7 +27,7 @@ class ArticleService:
         logger.info(f"Article with id {id} found")
         return article
     
-    def create_article(self, title: str, content: str, status: int, author: int):
+    def create_article(self, title: str, content: str, author: int):
         logger.info(f"Creating article with title '{title}' by author {author}")
         author_instance = self.profile_repository.get_profile_by_user_id(author)
 
@@ -35,7 +35,7 @@ class ArticleService:
             logger.error(f"Profile for author {author} not found")
             raise ValueError("Profile not found")
         
-        new_article_instance = Article(title=title, content=content, status=status, author=author_instance)
+        new_article_instance = KnowledgeBaseArticle(title=title, content=content, author=author_instance)
         self.article_repository.create_article(new_article_instance)
         logger.info(f"Article '{title}' created successfully")
 

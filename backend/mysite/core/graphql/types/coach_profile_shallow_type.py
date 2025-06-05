@@ -1,14 +1,15 @@
 import graphene
+from ...models.fix import CoachProfile
 from graphene_django import DjangoObjectType
-from ...models.profile import Profile
 
-class ProfileType(DjangoObjectType):
+class CoachProfileShallowType(DjangoObjectType):
     first_name = graphene.String()
     last_name = graphene.String()
 
     class Meta:
-        model = Profile
-        fields = "__all__"
+        model = CoachProfile
+        fields = ('id', 'first_name', 'last_name')
+        exclude_fields = ('coach_students', 'students')
 
     def resolve_first_name(self, info):
         return self.user.first_name if self.user else None

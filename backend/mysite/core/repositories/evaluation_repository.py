@@ -1,4 +1,4 @@
-from ..models.evaluation import Evaluation
+from ..models.fix import Evaluation
 import logging
 
 logger = logging.getLogger(__name__)

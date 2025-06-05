@@ -1,7 +1,8 @@
+from ...models.fix import Badge
 from graphene_django import DjangoObjectType
-from ...models.badge import Badge
 
 class BadgeType(DjangoObjectType):
     class Meta:
         model = Badge
-        fields = "__all__"
+        fields = ('id', 'label',)
+        exclude_fields = ('students',)

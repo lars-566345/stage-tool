@@ -2,8 +2,9 @@ import graphene
 from .article_query import GetAllArticles, GetArticleById
 from .badge_query import GetAllBadges, GetBadgeById
 from .evaluation_query import GetEvaluationsByStudentId, GetEvaluationById, GetMyEvaluations
-from .phase_query import GetAllPhases, GetPhaseById
-from .profile_query import GetProfileById, GetLoggedInUser
+from .student_profile_query import GetStudentProfileById, GetStudentProfiles
+from .coach_profile_query import GetCoachProfileById
+from .profile_query import GetLoggedInUser
 
 class Query(
     GetAllArticles, 
@@ -16,10 +17,10 @@ class Query(
     GetEvaluationById,
     GetMyEvaluations,
 
-    GetAllPhases,
-    GetPhaseById,
-
-    GetProfileById,
+    GetStudentProfiles,
+    GetStudentProfileById,
+    
+    GetCoachProfileById,
     GetLoggedInUser,
     
     graphene.ObjectType
