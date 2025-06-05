@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Typography, IconButton, SvgIcon } from '@mui/joy';
-import SidebarStudent from '../_components/SidebarStudent';
-import TimelinePhase from '../_components/TimelinePhase';
-import DeliverableItem from '../_components/DeliverableItem';
-import phaseData from '../_data/phaseData.json';
+import SidebarStudent from '../Components/SidebarStudent';
+import TimelinePhase from '../Components/TimelinePhase';
+import DeliverableItem from '../Components/DeliverableItem';
+import phaseData from '../data/phaseData.json';
 
+// Define types for the JSON data structure
 interface Deliverable {
   label: string;
 }
@@ -22,8 +23,11 @@ const Timeline: React.FC = () => {
   const [selectedPhaseIndex, setSelectedPhaseIndex] = useState<number>(0);
 
   const visiblePhasesCount = 3;
-  const phases = phaseData as Phase[];
-  const visiblePhases = phases.slice(currentStartIndex, currentStartIndex + visiblePhasesCount);
+
+  // Type assertion for imported JSON data
+  const typedPhaseData = phaseData as Phase[];
+
+  const visiblePhases = typedPhaseData.slice(currentStartIndex, currentStartIndex + visiblePhasesCount);
 
   const handlePrev = () => {
     setCurrentStartIndex((prev) => Math.max(prev - visiblePhasesCount, 0));
@@ -31,7 +35,7 @@ const Timeline: React.FC = () => {
 
   const handleNext = () => {
     setCurrentStartIndex((prev) =>
-      Math.min(prev + visiblePhasesCount, phases.length - visiblePhasesCount)
+      Math.min(prev + visiblePhasesCount, typedPhaseData.length - visiblePhasesCount)
     );
   };
 
@@ -49,7 +53,7 @@ const Timeline: React.FC = () => {
     });
   };
 
-  const currentPhase = phases[selectedPhaseIndex];
+  const currentPhase = typedPhaseData[selectedPhaseIndex];
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -70,12 +74,7 @@ const Timeline: React.FC = () => {
               mb: { xs: 5, lg: 6 },
             }}
           >
-            <IconButton
-              onClick={handlePrev}
-              disabled={currentStartIndex === 0}
-              variant="outlined"
-              size="lg"
-            >
+            <IconButton onClick={handlePrev} disabled={currentStartIndex === 0} variant="outlined" size="lg">
               <SvgIcon>
                 <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
               </SvgIcon>
@@ -106,7 +105,7 @@ const Timeline: React.FC = () => {
 
             <IconButton
               onClick={handleNext}
-              disabled={currentStartIndex + visiblePhasesCount >= phases.length}
+              disabled={currentStartIndex + visiblePhasesCount >= typedPhaseData.length}
               variant="outlined"
               size="lg"
             >
@@ -116,11 +115,13 @@ const Timeline: React.FC = () => {
             </IconButton>
           </Box>
 
+          {/* Phase Description */}
           <Box>
             <Typography level="h4">Description</Typography>
             <Typography>{currentPhase.description}</Typography>
           </Box>
 
+          {/* Deliverables */}
           <Box>
             <Typography level="h4">Deliverables</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
@@ -129,13 +130,13 @@ const Timeline: React.FC = () => {
                   key={index}
                   label={item.label}
                   selected={(selectedDeliverables[selectedPhaseIndex] || []).includes(index)}
-                  completed={true}
                   onClick={() => toggleDeliverable(index)}
                 />
               ))}
             </Box>
           </Box>
 
+          {/* IT Identity Section (optional) */}
           {currentPhase.identity && (
             <Box>
               <Typography level="h4">IT Identity</Typography>

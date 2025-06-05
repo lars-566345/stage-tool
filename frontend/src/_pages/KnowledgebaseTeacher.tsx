@@ -1,23 +1,23 @@
 import React from 'react';
 import { Box, Typography, Input } from '@mui/joy';
-import Layout from '../Components/Layout';
+import SidebarTeacher from '../Components/SidebarTeacher';
 import KnowledgebaseBox from '../Components/KnowledgebaseBox';
 import boxData from '../data/knowledgebaseData.json';
 
-// Define the type for each knowledgebase item
 interface KnowledgebaseItem {
   tag: string;
   title: string;
   description: string;
 }
 
-const Knowledgebase: React.FC = () => {
-  // Typecast JSON data to typed array
-  const typedBoxData = boxData as KnowledgebaseItem[];
+const KnowledgebaseTeacher: React.FC = () => {
+  const data: KnowledgebaseItem[] = boxData;
 
   return (
-    <Layout>
-      <Box sx={{ width: '100%' }}>
+    <Box sx={{ display: 'flex' }}>
+      <SidebarTeacher />
+
+      <Box sx={{ flex: 1, p: 4, backgroundColor: 'white' }}>
         <Typography
           level="h2"
           sx={{
@@ -25,6 +25,7 @@ const Knowledgebase: React.FC = () => {
             justifyContent: 'center',
             fontWeight: 'bold',
             mb: { xs: 5, lg: 7 },
+            color: 'black',
           }}
         >
           Knowledgebase
@@ -56,19 +57,20 @@ const Knowledgebase: React.FC = () => {
             justifyContent: 'flex-start',
           }}
         >
-          {typedBoxData.map((box, index) => (
+          {data.map((box, index) => (
             <KnowledgebaseBox
               key={index}
+              index={index}
               tag={box.tag}
               title={box.title}
               description={box.description}
-              index={index}
+              role="teacher"
             />
           ))}
         </Box>
       </Box>
-    </Layout>
+    </Box>
   );
 };
 
-export default Knowledgebase;
+export default KnowledgebaseTeacher;

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Typography, Avatar, Button } from '@mui/joy';
-import SidebarStudent from '../_components/SidebarStudent';
-import EvaluationBox from '../_components/EvaluationBox';
-import userData from '../_data/users.json';
+import SidebarStudent from '../Components/SidebarStudent';
+import EvaluationBox from '../Components/EvaluationBox';
+import userData from '../data/users.json';
 
+// Interfaces
 interface Evaluation {
   date: string;
   name: string;
@@ -11,22 +12,30 @@ interface Evaluation {
   image: string;
 }
 
+interface UserData {
+  name: string;
+  profilePicture: string;
+}
+
+// Constants
 const ITEMS_PER_PAGE = 3;
+
+// Type assertions for JSON imports
+const typedUserData = userData as UserData;
 
 const Evaluations: React.FC = () => {
   const [evaluations, setEvaluations] = useState<Evaluation[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const addEvaluation = (text: string): void => {
+  const addEvaluation = (text: string) => {
     const newEval: Evaluation = {
       date: new Date().toLocaleDateString('nl-NL'),
-      name: userData.name,
+      name: typedUserData.name,
       content: text,
-      image: userData.profilePicture,
+      image: typedUserData.profilePicture,
     };
-    const updatedEvals = [newEval, ...evaluations];
-    setEvaluations(updatedEvals);
-    setCurrentPage(1); 
+    setEvaluations([newEval, ...evaluations]);
+    setCurrentPage(1);
   };
 
   const totalPages = Math.ceil(evaluations.length / ITEMS_PER_PAGE);
@@ -47,9 +56,9 @@ const Evaluations: React.FC = () => {
 
         {/* User Info */}
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
-          <Avatar src={userData.profilePicture} sx={{ mr: 2, width: 80, height: 80 }} />
+          <Avatar src={typedUserData.profilePicture} sx={{ mr: 2, width: 80, height: 80 }} />
           <Box>
-            <Typography level="h4">{userData.name}</Typography>
+            <Typography level="h4">{typedUserData.name}</Typography>
             <Typography level="body-sm">
               Semester 5<br />
               Preparing for internship<br />
