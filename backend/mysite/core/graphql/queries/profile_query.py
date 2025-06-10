@@ -15,9 +15,9 @@ class GetLoggedInUser(graphene.ObjectType):
         user = info.context.user
         if user.is_anonymous:
             return None
-        if hasattr(user, 'studentprofile'):
-            return user.studentprofile
-        elif hasattr(user, 'coachprofile'):
-            return user.coachprofile
+        if hasattr(user, 'student_profile'):
+            return user.student_profile
+        elif hasattr(user, 'coach_profile'):
+            return user.coach_profile
         return None    
     

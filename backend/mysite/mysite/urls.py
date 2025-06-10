@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.views.decorators.csrf import csrf_protect
 from core.graphql.views import CustomGraphQLView, get_csrf_token
 from core.graphql.schema import schema
-from core.graphql.middleware import LoginRequiredMiddleware, JWTAuthenticationMiddleware
+from core.graphql.middleware import JWTAndLoginRequiredMiddleware
 
 urlpatterns = [
     path(
@@ -13,8 +13,7 @@ urlpatterns = [
                 graphiql=True,
                 schema=schema,
                 middleware=[
-                    JWTAuthenticationMiddleware,
-                    LoginRequiredMiddleware,
+                    JWTAndLoginRequiredMiddleware,
                 ]
             )
         ),

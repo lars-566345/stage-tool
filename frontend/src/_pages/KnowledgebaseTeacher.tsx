@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Input } from '@mui/joy';
-import SidebarTeacher from '../Components/SidebarTeacher';
-import KnowledgebaseBox from '../Components/KnowledgebaseBox';
-import boxData from '../data/knowledgebaseData.json';
+import SidebarTeacher from '../_components/SidebarTeacher';
+import KnowledgebaseBox from '../_components/KnowledgebaseBox';
+import boxData from '../_data/knowledgebaseData.json';
 
 interface KnowledgebaseItem {
   tag: string;

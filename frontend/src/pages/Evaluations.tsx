@@ -1,25 +1,13 @@
 import { gql, useQuery } from '@apollo/client';
 
 const GET_EVALUATIONS = gql`
-    query  {
+    query {
         myEvaluations {
             id
             feedback
-            date
-            student {
-                id
-                firstName
-                lastName
-            }
-            teacher {
-                id
-                firstName
-                lastName
-            }
-            phase {
-                id
-                content
-            }
+            createdAt
+            studentName
+            coachName
         }
     }
 `;
@@ -38,11 +26,10 @@ function Evaluations() {
             <div className="space-y-4">
                 {data.myEvaluations.map((evaluation: any) => (
                     <div key={evaluation.id} className="border rounded-xl p-4 shadow">
-                        <p><strong>Date:</strong> {new Date(evaluation.date).toLocaleDateString()}</p>
+                        <p><strong>Date:</strong> {new Date(evaluation.createdAt).toLocaleDateString()}</p>
                         <p><strong>Feedback:</strong> {evaluation.feedback}</p>
-                        <p><strong>Student:</strong> {evaluation.student.firstName} {evaluation.student.lastName}</p>
-                        <p><strong>Teacher:</strong> {evaluation.teacher.firstName} {evaluation.teacher.lastName}</p>
-                        <p><strong>Phase:</strong> {evaluation.phase.content}</p>
+                        <p><strong>Student:</strong> {evaluation.studentName}</p>
+                        <p><strong>Teacher:</strong> {evaluation.coachName}</p>
                     </div>
                 ))}
             </div>

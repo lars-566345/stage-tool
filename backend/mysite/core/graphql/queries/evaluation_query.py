@@ -1,6 +1,9 @@
 import graphene
 from ..types.evaluation_type import EvaluationType
 from ...services.evaluation_service import EvaluationService
+import logging
+
+logger = logging.getLogger(__name__)
 
 class GetEvaluationsByStudentId(graphene.ObjectType):
     evaluations = graphene.List(EvaluationType, student_id=graphene.ID(required=True))
@@ -21,6 +24,6 @@ class GetMyEvaluations(graphene.ObjectType):
         user = info.context.user
         if user.is_anonymous:
             return None
-        if hasattr(user, 'studentprofile'):
-            return EvaluationService().get_evaluations_by_student_id(user.id)
+        if hasattr(user, 'student_profile'):
+            return EvaluationService().get_evaluations_by_student_id(user.student_profile.id)
         return None

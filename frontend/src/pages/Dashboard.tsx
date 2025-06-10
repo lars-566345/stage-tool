@@ -1,94 +1,91 @@
-import Avatar from '@mui/joy/Avatar';
-import Box from '@mui/joy/Box';
-import Typography from '@mui/joy/Typography';
-import Grid from '@mui/joy/Grid';
-import Divider from '@mui/joy/Divider';
-import Button from '@mui/joy/Button';
+import { gql, useQuery } from '@apollo/client';
+import { useAuth } from '../components/AuthContext';
 
+const GET_STUDENT_DETAILS = gql`
+  query {
+    studentProfile(id: 6) {
+      firstName
+      lastName
+      evaluations {
+        id
+        createdAt
+      }
+      id
+      earnedBadges {
+        id
+        label
+      }
+      favoriteArticles {
+        id
+        title
+      }
+      coaches {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 
+function Evaluations() {
+    const { user, loading: authLoading } = useAuth();
 
-function Dashboard() {
-  return (
-    <>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 2, // spacing between children
-      }}>
-        <Typography color="neutral" level="title-sm">Dashboard</Typography>
-        <Avatar />
-        <Typography level="h1">Lars de Wit</Typography>
-        <Button
-  color="danger"
-  onClick={function(){}}
-  size="lg"
-  variant="outlined"> Test</Button>
+    const { loading: dataLoading, error: dataError, data } = useQuery(GET_STUDENT_DETAILS, {
+        fetchPolicy: 'network-only',
+        variables: { id: user?.id },
+        skip: authLoading || !user?.id,
+    })
 
-        <Grid container spacing={2} sx={{ width: '100%' }}>
-          <Grid xs={12} md={3}>
-            <Box sx={{border: '1px solid', borderColor: 'divider', borderRadius: 'md',}}>
-              <Box sx={{ bgcolor: 'primary.softBg', p: 2 }}>
-                Evaluations
-              </Box>
-              <Divider />
-              <Box sx={{ p: 2 }}>
-                Content
-              </Box>
-            </Box>
-          </Grid>
-          <Grid xs={12} md={6}>
-            <Box sx={{border: '1px solid', borderColor: 'divider', borderRadius: 'md',}}>
-              <Box sx={{ bgcolor: 'primary.softBg', p: 2 }}>
-                Timeline
-              </Box>
-              <Divider />
-              <Box sx={{ p: 2 }}>
-                Content
-              </Box>
-            </Box>
-          </Grid>
-          <Grid xs={12} md={3}>
-            <Box sx={{border: '1px solid', borderColor: 'divider', borderRadius: 'md',}}>
-                <Box sx={{ bgcolor: 'primary.softBg', p: 2 }}>
-                  Semestercoaches
-                </Box>
-                <Divider />
-                <Box sx={{ p: 2 }}>
-                  Content
-                </Box>
-            </Box>
-          </Grid>
-          <Grid xs={12} md={6}>
-            <Box sx={{border: '1px solid', borderColor: 'divider', borderRadius: 'md',}}>
-                <Box sx={{ bgcolor: 'primary.softBg', p: 2 }}>
-                  Pinned Posts
-                </Box>
-                <Divider />
-                <Box sx={{ p: 2 }}>
-                  Content
-                </Box>
-            </Box>
-          </Grid>
-          <Grid xs={12} md={6}>
-            <Box sx={{border: '1px solid', borderColor: 'divider', borderRadius: 'md',}}>
-                <Box sx={{ bgcolor: 'primary.softBg', p: 2 }}>
-                  Pinned Posts
-                </Box>
-                <Divider />
-                <Box sx={{ p: 2 }}>
-                  Content
-                </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+    if (dataLoading) return <p>Loading...</p>;
+    if (dataError) return <p>Error! {dataError.message}</p>;
 
-      
-    </>
-  );
+    const student = data.studentProfile;
+
+    return (
+    <div>
+      <h1>
+        Welcome, {student.firstName} {student.lastName}
+      </h1>
+
+      <section>
+        <h2>Evaluations</h2>
+        <ul>
+          {student.evaluations.map((evaluation: any) => (
+            <li key={evaluation.id}>Created At: {new Date(evaluation.createdAt).toLocaleDateString()}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Earned Badges</h2>
+        <ul>
+          {student.earnedBadges.map((badge: any) => (
+            <li key={badge.id}>{badge.label}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Favorite Articles</h2>
+        <ul>
+          {student.favoriteArticles.map((article: any) => (
+            <li key={article.id}>{article.title}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Coaches</h2>
+        <ul>
+          {student.coaches.map((coach: any, index: number) => (
+            <li key={index}>
+              {coach.firstName} {coach.lastName}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+    );
 }
-
-export default Dashboard;
+  
+export default Evaluations;
