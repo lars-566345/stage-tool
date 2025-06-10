@@ -52,7 +52,7 @@ const LoginForm: React.FC = () => {
         headers,
         body: JSON.stringify({
           query: `
-            mutation Login($username: String!, $password: String!) {
+            mutation login($username: String!, $password: String!) {
               login(username: $username, password: $password) {
                 success
                 errors
@@ -65,13 +65,11 @@ const LoginForm: React.FC = () => {
       });
 
       const result: TokenAuthResponse = await response.json();
+      console.log("Login result:", result);
 
       if (result.data?.login?.success) {
-        const profile = result.data.login.profile;
-        if (profile) {
-          setProfileName(`${profile.firstName} ${profile.lastName}`);
-        }
-        navigate("/dashboard")
+          navigate("/dashboard")
+          window.location.href = "/dashboard";
       } else if (result.data?.login?.errors) {
         const errors = result.data.login.errors;
         const messages = Object.values(errors)

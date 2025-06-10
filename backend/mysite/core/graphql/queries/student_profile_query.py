@@ -1,7 +1,9 @@
 import graphene
 from ..types.student_profile_type import StudentProfileType
 from ...services.student_profile_service import StudentProfileService
+import logging
 
+logger = logging.getLogger(__name__)
 
 class GetStudentProfiles(graphene.ObjectType):
     student_profiles = graphene.List(StudentProfileType)
@@ -14,3 +16,4 @@ class GetStudentProfileById(graphene.ObjectType):
 
     def resolve_student_profile(self, info, id):
         return StudentProfileService().get_profile_by_user_id(id)
+    

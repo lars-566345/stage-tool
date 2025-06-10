@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/joy';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import SidebarTeacher from '../Components/SidebarTeacher';
-import SmallBox from '../Components/SmallBox';
-import KnowledgebaseBox from '../Components/KnowledgebaseBox';
-import studentData from '../data/teacherStudents.json';
-import boxData from '../data/knowledgebaseData.json';
+import SidebarTeacher from '../_components/SidebarTeacher';
+import SmallBox from '../_components/SmallBox';
+import KnowledgebaseBox from '../_components/KnowledgebaseBox';
+import studentData from '../_data/teacherStudents.json';
+import boxData from '../_data/knowledgebaseData.json';
 
 interface Student {
   id: number;

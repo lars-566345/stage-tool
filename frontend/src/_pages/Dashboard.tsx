@@ -1,10 +1,12 @@
 import React from 'react';
-import Layout from '../Components/Layout';
-import BigBox from '../Components/BigBox';
-import SmallBox from '../Components/SmallBox';
+import Layout from '../_components/Layout';
+import BigBox from '../_components/BigBox';
+import SmallBox from '../_components/SmallBox';
 import { Box, Typography } from '@mui/joy';
-import userData from '../data/users.json';
-import boxData from '../data/knowledgebaseData.json';
+import userData from '../_data/users.json';
+import { gql } from '@apollo/client';
+import { useAuth } from '../components/AuthContext';
+import { useQuery } from '@apollo/client';
 
 // Type definitions for imported data
 interface Badge {
@@ -30,25 +32,56 @@ interface UserData {
   badges: Badge[];
 }
 
-interface KnowledgeBaseItem {
-  title: string;
-  tag: string;
-}
+const GET_STUDENT_DETAILS = gql`
+  query studentProfile($id: ID!) {
+    studentProfile(id: $id) {
+      firstName
+      lastName
+      evaluations {
+        id
+        createdAt
+      }
+      id
+      earnedBadges {
+        id
+        label
+      }
+      favoriteArticles {
+        id
+        title
+        tag
+      }
+      coaches {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 
 const Dashboard: React.FC = () => {
+  const { user, loading: authLoading } = useAuth();
+
+  const { loading: dataLoading, error: dataError, data } = useQuery(GET_STUDENT_DETAILS, {
+      fetchPolicy: 'network-only',
+      variables: { id: user?.id },
+      skip: authLoading || !user?.id,
+  })
+
+  if (dataLoading) return <p>Loading...</p>;
+  if (dataError) return <p>Error! {dataError.message}</p>;
+
+  const student = data.studentProfile;
+
   const {
-    name,
-    evaluationDates,
     timeline,
-    semesterCoach,
-    badges
   } = userData as UserData;
 
   return (
     <Layout>
       <Box sx={{ textAlign: 'center', mb: 5 }}>
         <Typography sx={{ fontSize: { xs: '24px', md: '32px' }, fontWeight: 'bold', color: 'black' }}>
-          {name}
+          {student.firstName + " " + student.lastName}
         </Typography>
       </Box>
 
@@ -67,7 +100,7 @@ const Dashboard: React.FC = () => {
                 mt: 2,
               }}
             >
-              {evaluationDates.map((date, i) => (
+              {student.evaluations.map((evaluation: any, i: number) => (
                 <React.Fragment key={i}>
                   <Typography
                     sx={{
@@ -77,7 +110,7 @@ const Dashboard: React.FC = () => {
                       fontWeight: 'medium',
                     }}
                   >
-                    {date}
+                    {evaluation.createdAt ? new Date(evaluation.createdAt).toISOString().split("T")[0] : ""}
                   </Typography>
                   <Box
                     sx={{
@@ -114,6 +147,7 @@ const Dashboard: React.FC = () => {
                   color: '#ffffff',
                 }}
               >
+                {/*FIX THIS TO TIMELINE FROM DB*/}
                 {timeline.title}
               </Typography>
               <Typography
@@ -144,8 +178,8 @@ const Dashboard: React.FC = () => {
               }}
             >
               <img
-                src={semesterCoach.image}
-                alt={semesterCoach.name}
+                src="/public/coachImage.jpg"
+                alt={student.coaches[0].firstName + " " + student.coaches[0].lastName}
                 style={{
                   width: 80,
                   height: 80,
@@ -163,7 +197,7 @@ const Dashboard: React.FC = () => {
                   textAlign: 'center',
                 }}
               >
-                {semesterCoach.name}
+                {student.coaches[0].firstName + " " + student.coaches[0].lastName}
               </Typography>
             </Box>
           </SmallBox>
@@ -183,10 +217,10 @@ const Dashboard: React.FC = () => {
                 overflow: 'hidden',
               }}
             >
-              {(boxData as KnowledgeBaseItem[]).map((box, index) => (
+              {student.favoriteArticles.map((article: any, i: number) => (
                 <Box
-                  key={index}
-                  onClick={() => (window.location.href = `/knowledgebase/${index}?from=dashboard`)}
+                  key={i}
+                  onClick={() => (window.location.href = `/knowledgebase/${i}?from=dashboard`)}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -201,8 +235,8 @@ const Dashboard: React.FC = () => {
                   }}
                 >
                   <img
-                    src="/img/knowledgebasePicture.png"
-                    alt={box.title}
+                    src="/public/knowledgebasePicture.png"
+                    alt={article.title}
                     style={{
                       width: 48,
                       height: 48,
@@ -218,7 +252,7 @@ const Dashboard: React.FC = () => {
                         fontSize: '1rem',
                       }}
                     >
-                      {box.title}
+                      {article.title}
                     </Typography>
                     <Typography
                       sx={{
@@ -227,7 +261,7 @@ const Dashboard: React.FC = () => {
                         opacity: 0.8,
                       }}
                     >
-                      {box.tag}
+                      {article.tag}
                     </Typography>
                   </Box>
                 </Box>
@@ -249,10 +283,10 @@ const Dashboard: React.FC = () => {
                 paddingTop: 5,
               }}
             >
-              {badges.map((badge, i) => (
+              {student.earnedBadges.map((badge: any, i: number) => (
                 <Box key={i} sx={{ textAlign: 'center' }}>
                   <img
-                    src={badge.image}
+                    src="/public/interviewBadge.png"
                     alt={badge.label}
                     style={{
                       width: 100,

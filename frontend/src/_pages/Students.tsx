@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Input } from '@mui/joy';
-import SidebarTeacher from '../Components/SidebarTeacher';
-import StudentCard from '../Components/StudentCard';
-import studentData from '../data/teacherStudents.json';
+import SidebarTeacher from '../_components/SidebarTeacher';
+import StudentCard from '../_components/StudentCard';
+import studentData from '../_data/teacherStudents.json';
 
 interface Student {
   id: number;

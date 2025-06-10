@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Avatar } from '@mui/joy';
-import SidebarTeacher from '../Components/SidebarTeacher';
-import studentData from '../data/teacherStudents.json';
+import SidebarTeacher from '../_components/SidebarTeacher';
+import studentData from '../_data/teacherStudents.json';
 
 interface Evaluation {
   date: string;

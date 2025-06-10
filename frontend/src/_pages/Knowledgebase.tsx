@@ -1,19 +1,33 @@
 import React from 'react';
 import { Box, Typography, Input } from '@mui/joy';
-import Layout from '../Components/Layout';
-import KnowledgebaseBox from '../Components/KnowledgebaseBox';
-import boxData from '../data/knowledgebaseData.json';
+import Layout from '../_components/Layout';
+import KnowledgebaseBox from '../_components/KnowledgebaseBox';
+import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { useAuth } from '../components/AuthContext';
 
-// Define the type for each knowledgebase item
-interface KnowledgebaseItem {
-  tag: string;
-  title: string;
-  description: string;
-}
+const GET_ARTICLES = gql`
+  query {
+    articles {
+      id
+      tag
+      title
+      content
+    }
+  }
+`;
 
 const Knowledgebase: React.FC = () => {
-  // Typecast JSON data to typed array
-  const typedBoxData = boxData as KnowledgebaseItem[];
+  const { user, loading: authLoading } = useAuth();
+  const { loading: dataLoading, error: dataError, data } = useQuery(GET_ARTICLES, {
+      fetchPolicy: 'network-only',
+      skip: authLoading || !user?.id,
+  })
+
+  if (dataLoading) return <p>Loading...</p>;
+  if (dataError) return <p>Error! {dataError.message}</p>;
+
+  const articles = data.articles;
 
   return (
     <Layout>
@@ -56,13 +70,13 @@ const Knowledgebase: React.FC = () => {
             justifyContent: 'flex-start',
           }}
         >
-          {typedBoxData.map((box, index) => (
+          {articles.map((article: any) => (
             <KnowledgebaseBox
-              key={index}
-              tag={box.tag}
-              title={box.title}
-              description={box.description}
-              index={index}
+              key={article.id}
+              tag={article.tag}
+              title={article.title}
+              description={article.content}
+              index={article.id}
             />
           ))}
         </Box>
