@@ -31,6 +31,8 @@
 3. Activate the venv
 4. Install the requirements for the backend
 5. Run the custom setup django management command (python manage.py create_test_environment)
-6. Open a second terminal
-7. Install requirements for frontend
-8. Run "npm run dev"
+6. Navigate to mysite
+7. Run "python manage.py runserver"
+8. Open a second terminal
+9. Install requirements for frontend
+10. Run "npm run dev"
